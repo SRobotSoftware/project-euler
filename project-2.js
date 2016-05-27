@@ -5,7 +5,19 @@
 // million, find the sum of the even- valued terms.
 
 function sumFib() {
-
+	var fib = [1,2];
+	var current = 0;
+	var iterator = 1;
+	var out = null;
+	while (current < 4000000) {
+		current = fib[iterator - 1] + fib[iterator];
+		fib.push(current);
+		iterator++;
+	}
+	fib.forEach(function (x) {
+		if (x % 2 === 0) out += x;
+	});
+	return out;
 }
 
 console.log(sumFib());
