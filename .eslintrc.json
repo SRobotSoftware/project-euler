@@ -26,6 +26,7 @@
         ]
     },
     "globals": {
-        "require": false
+        "require": false,
+        "exports": false
     }
 }

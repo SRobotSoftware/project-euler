@@ -42,7 +42,6 @@
 
 // Refactored
 
-let now = require('performance-now')
 function isPrime(x) {
 	if ((x != 2 && x != 3) && (x % 2 === 0 || x % 3 === 0)) return false
 	var m = Math.sqrt(x)
@@ -63,32 +62,6 @@ function findPrime() {
 	var result = results.reduce((p, c) => { return p + c })
 	return result
 }
-function testPerformance() {
-	let t0 = now()
-	let result = findPrime()
-	let t1 = now()
-	let out = t1 - t0
-	return { perf: out, result: result }
-}
-function benchmark(repeat) {
-	console.log('Running ' + repeat + ' tests...')
-	let results = []
-	let t0 = now()
-	while (repeat) {
-		results.push(testPerformance())
-		repeat--
-	}
-	let t1 = now()
-	let perfs = results.map((result) => { return result.perf })
-	let len = perfs.length
-	perfs.sort((a, b) => { return a - b })
-	let fastest = perfs[0].toFixed(4)
-	let slowest = perfs[perfs.length - 1].toFixed(4)
-	let sum = perfs.reduce((prev, curr) => { return prev + curr })
-	let average = (sum / len).toFixed(4)
-	let t2 = now()
-	console.log(len + ' tests took ' + ((t1 - t0) / 1000).toFixed(4) + ' seconds(' + (t1 - t0).toFixed(4) + ') to complete and ' + (t2 - t1).toFixed(4) + ' milliseconds to format.')
-	let out = (len + ' tests averaged to: ' + average + ' milliseconds each. F ' + fastest + ' / S ' + slowest + ' / R ' + (slowest - fastest).toFixed(4))
-	return out
-}
-console.log(benchmark(50))
+
+let metric = require('./mymetric.js')
+console.log(metric.benchmark(50, findPrime))
