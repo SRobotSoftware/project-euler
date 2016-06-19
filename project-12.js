@@ -13,31 +13,36 @@
 // We can see that 28 is the first triangle number to have over five divisors.
 // What is the value of the first triangle number to have over five hundred divisors?
 
+// This method would probably work, but it takes far too long, needs to be refactored into an algorithm that uses prime factors to help pin down the number of factors
+
 function calcDivisors(x) {
-	var results = [];
-	var limit = x / 2;
-	for (var i = 1; i <= limit; i++) {
-		if (x % i === 0) results.push(i);
+	let results = [];
+	let limit = Math.sqrt(x);
+	results.push(1,x);
+	if (x % 2 === 0) results.push(2,x/2);
+	for (let i = 3; i <= limit; i++) {
+		let j = 1;
+		while (i * j <= x) {
+			if (i * j === x) results.push(i,j);
+			j++;
+		}
 	}
-	results.push(x);
 	return results;
 }
 
 function calcTriangularNumbers(x) {
 	console.log("Calculating...");
-	var result = {
+	let result = {
 		num: 1,
 		divisors: 1
 	};
-	var i = 2;
-	console.log(result.num + ": " + result.divisors);
+	let i = 2;
 	while (result.divisors < x) {
 		result.num += i;
 		result.divisors = calcDivisors(result.num).length;
-		console.log(result.num + ": " + result.divisors);
 		i++;
 	}
 	console.log(result);
 	return result;
 }
-calcTriangularNumbers(100);
+// calcTriangularNumbers(500);
