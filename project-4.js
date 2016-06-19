@@ -3,27 +3,33 @@
 // Find the largest palindrome made from the product of two 3-digit numbers.
 
 function checkPalindrome(num) {
-	var digits = (num + "").split("");
+	var digits = (num + '').split('')
 	// take second half of array
-	var half = Math.floor(digits.length/2-1);
-	var temp = [];
-	for (var i = half, j = 0; i <= digits.length; i++) {
-		temp.push(digits.splice(digits.length-1,1)+"");
-	}
+	var half = Math.floor(digits.length / 2 - 1)
+	var temp = []
+	temp = digits.splice(half + 1, half + 1)
+	temp.reverse()
 	// check arrays against each other
-	if (digits.length > temp.length || temp.length > digits.length) return false;
-	if (digits.toString() == temp.toString()) return true;
-	return false;
+	if (digits.length != temp.length) return false
+	if (digits.toString() === temp.toString()) return true
+	return false
 }
 
 // test
-var result = 0;
-for (var i = 999; i > 99; i--) {
-	for (var j = 999; j > 99; j--) {
-		var test = i * j;
-		if (checkPalindrome(test)) {
-			if (test > result) result = test;
+function test() {
+	var result = 0
+	var i = 999
+	while (i > 99) {
+		var j = 999
+		while (j > 99) {
+			var test = i * j
+			if (checkPalindrome(test) && test > result) result = test
+			j--
 		}
+		i--
 	}
+	var out = 'Palindrome found: ' + result
+	return out
 }
-console.log("Palindrome found: " + result);
+let metric = require('./mymetric.js')
+console.log(metric.benchmark(50, test))

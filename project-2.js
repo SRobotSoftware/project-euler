@@ -5,19 +5,18 @@
 // million, find the sum of the even- valued terms.
 
 function sumFib() {
-	var fib = [1,2];
-	var current = 0;
-	var iterator = 1;
-	var out = null;
+	var fib = [1, 2]
+	var current = 0
+	var iterator = 1
+	var out = null
 	while (current < 4000000) {
-		current = fib[iterator - 1] + fib[iterator];
-		fib.push(current);
-		iterator++;
+		current = fib[iterator - 1] + fib[iterator]
+		fib.push(current)
+		iterator++
 	}
-	fib.forEach(function (x) {
-		if (x % 2 === 0) out += x;
-	});
-	return out;
+	fib.map((x) => { if (x % 2 === 0) out += x })
+	return out
 }
 
-console.log(sumFib());
+let metric = require('./mymetric.js')
+console.log(metric.benchmark(50, sumFib))

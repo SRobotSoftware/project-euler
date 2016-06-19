@@ -2,30 +2,34 @@
 // What is the largest prime factor of the number 600851475143 ?
 
 function isPrime(x) {
-	var out = true;
-	for (var i = x - 1; i > 1; i--) {
-		if (x%i === 0) out = false;
+	if ((x != 2 && x != 3) && (x % 2 === 0 || x % 3 === 0)) return false
+	var m = Math.sqrt(x)
+	var i = 5
+	while (i <= m) {
+		if (x % i === 0 || x % (i + 2) === 0) return false
+		i += 6
 	}
-	return out;
+	return true
 }
 
-function lpf(x) {
-	var out = 0;
-	var primes = [];
+function lpf() {
+	var x = 600851475143
+	var out = 0
+	var primes = []
 	while (x > 1) {
-		for (var i = 2; true; i++) {
-			if (isPrime(i)) {
-				if (x % i === 0) {
-					console.log(x + " / " + i);
-					x /= i;
-					primes.push(i);
-					break;
-				}
+		var i = 2
+		while (true) {
+			if (isPrime(i) && x % i === 0) {
+				x /= i
+				primes.push(i)
+				break
 			}
+			i++
 		}
 	}
-	out = Math.max(...primes);
-	return out;
+	out = Math.max(...primes)
+	return out
 }
 
-console.log(lpf(600851475143));
+let metric = require('./mymetric.js')
+console.log(metric.benchmark(50, lpf))
