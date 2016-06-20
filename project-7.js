@@ -2,20 +2,31 @@
 
 // What is the 10 001st prime number?
 
+// Averages 12.4671 ms
+
 function isPrime(x) {
-	var out = true;
-	for (var i = x - 1; i > 1; i--) {
-		if (x%i === 0) out = false;
+	if ((x != 2 && x != 3) && (x % 2 === 0 || x % 3 === 0)) return false
+	var m = Math.sqrt(x)
+	var i = 5
+	while (i <= m) {
+		if (x % i === 0 || x % (i + 2) === 0) return false
+		i += 6
 	}
-	return out;
+	return true
 }
 
-var results = 0;
-console.log("Starting loop");
-for (var i = 2; results < 10001; i++) {
-	if (isPrime(i)) {
-		results++;
+function test() {
+	var results = 0
+	var i = 2
+	while (results < 10001) {
+		if (isPrime(i)) {
+			results++
+		}
+		i++
 	}
+	return i - 1
 }
-console.log("Finished");
-console.log(i-1);
+
+console.log(test())
+let metric = require('./mymetric.js')
+console.log(metric.benchmark(50, test))

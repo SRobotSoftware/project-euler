@@ -7,20 +7,33 @@
 // Find the difference between the sum of the squares of the first one
 // hundred natural numbers and the square of the sum.
 
+// Averages 0.038 ms
+
 function sumSquares() {
-	out = 0;
-	for (var i = 1; i <= 100; i++) {
-		out += i * i;
+	var out = 0
+	var i = 1
+	while (i <= 100) {
+		out += i * i
+		i++
 	}
-	return out;
+	return out
 }
 
 function SquareSum() {
-	out = 0;
-	for (var i = 1; i <= 100; i++) {
-		out += i;
+	var out = 0
+	var i = 1
+	while (i <= 100) {
+		out += i
+		i++
 	}
-	return out*out;
+	return out * out
 }
 
-console.log(SquareSum() - sumSquares());
+function test() {
+	var out = SquareSum() - sumSquares()
+	return out
+}
+
+console.log(test())
+let metric = require('./mymetric.js')
+console.log(metric.benchmark(50, test))

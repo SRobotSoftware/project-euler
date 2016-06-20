@@ -2,17 +2,21 @@
 // from the product of two 2- digit numbers is 9009 = 91 × 99.
 // Find the largest palindrome made from the product of two 3-digit numbers.
 
+// Averages 299.9361ms
+
 function checkPalindrome(num) {
 	var digits = (num + '').split('')
-	// take second half of array
+	if (digits[0] != digits[digits.length - 1]) return false
 	var half = Math.floor(digits.length / 2 - 1)
 	var temp = []
-	temp = digits.splice(half + 1, half + 1)
-	temp.reverse()
-	// check arrays against each other
+	temp = digits.splice(half + 1, half + 1).reverse()
 	if (digits.length != temp.length) return false
-	if (digits.toString() === temp.toString()) return true
-	return false
+	var i = digits.length
+	while (i) {
+		if (digits[i] != temp[i]) return false
+		i--
+	}
+	return true
 }
 
 // test

@@ -4,15 +4,17 @@
 // By considering the terms in the Fibonacci sequence whose values do not exceed four
 // million, find the sum of the even- valued terms.
 
+// Averages 0.0027ms
+
 function sumFib() {
 	var fib = [1, 2]
 	var current = 0
-	var iterator = 1
 	var out = null
+	var i = 1
 	while (current < 4000000) {
-		current = fib[iterator - 1] + fib[iterator]
+		current = fib[i - 1] + fib[i]
 		fib.push(current)
-		iterator++
+		i++
 	}
 	fib.map((x) => { if (x % 2 === 0) out += x })
 	return out

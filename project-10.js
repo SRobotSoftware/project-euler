@@ -41,6 +41,7 @@
 
 
 // Refactored
+// Averages 810ms
 
 function isPrime(x) {
 	if ((x != 2 && x != 3) && (x % 2 === 0 || x % 3 === 0)) return false

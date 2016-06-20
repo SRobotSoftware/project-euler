@@ -59,7 +59,6 @@ function calculateGrid(data) {
 	// Calculate diagonal up right to down left
 	for (var i = 3; i < data.length; i++) {
 		for (var j = 0; j < data[i].length - 3; j++) {
-			console.log(data[i][j], data[i - 1][j + 1], data[i - 2][j + 2], data[i - 3][j + 3]);
 			var test = product(data[i][j], data[i - 1][j + 1], data[i - 2][j + 2], data[i - 3][j + 3]);
 			if (test > result) result = test;
 		}
@@ -67,4 +66,6 @@ function calculateGrid(data) {
 	return result;
 }
 
-calculateGrid(data);
+console.log(calculateGrid(data))
+let metric = require('./mymetric.js')
+console.log(metric.benchmark(50, test))
