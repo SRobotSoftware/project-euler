@@ -14,35 +14,83 @@
 // What is the value of the first triangle number to have over five hundred divisors?
 
 // This method would probably work, but it takes far too long, needs to be refactored into an algorithm that uses prime factors to help pin down the number of factors
+// function calcDivisors(x) {
+// 	var results = []
+// 	var limit = sqrt(x)
+// 	results.push(1, x)
+// 	if (x % 2 === 0) results.push(2, x / 2)
+// 	var i = 3
+// 	while (i <= limit) {
+// 		var j = 1
+// 		while (i * j <= x) {
+// 			if (i * j === x) results.push(i, j)
+// 			j++
+// 		}
+// 		i++
+// 	}
+// 	return results
+// }
 
-function calcDivisors(x) {
-	let results = [];
-	let limit = Math.sqrt(x);
-	results.push(1,x);
-	if (x % 2 === 0) results.push(2,x/2);
-	for (let i = 3; i <= limit; i++) {
-		let j = 1;
-		while (i * j <= x) {
-			if (i * j === x) results.push(i,j);
-			j++;
-		}
+
+// var sqrt = Math.sqrt
+// function calcNumDivisors(x) {
+// 	if (isPrime(x)) return 2
+// 	var out = 2
+// 	var limit = sqrt(x)
+// 	if (x % 2 === 0) out += 2
+// 	var i = 3
+// 	while (i <= limit) {
+// 		var j = 1
+// 		while (i * j <= x) {
+// 			if (i * j === x) out += 2
+// 			j++
+// 		}
+// 		i++
+// 	}
+// 	return out
+// }
+
+// function isPrime(x) {
+// 	if ((x != 2 && x != 3) && (x % 2 === 0 || x % 3 === 0)) return false
+// 	var m = Math.sqrt(x)
+// 	var i = 5
+// 	while (i <= m) {
+// 		if (x % i === 0 || x % (i + 2) === 0) return false
+// 		i += 6
+// 	}
+// 	return true
+// }
+
+// Averages 1981.2886 ms
+
+var pow = Math.pow
+
+function calcPrimeFactors(x) {
+	var out = 2
+	var i = 2
+	while (pow(i,2) < x) {
+		if (x % i === 0) out += 2
+		i++
 	}
-	return results;
+	if (pow(i,2) === x) out++
+	return out
 }
 
-function calcTriangularNumbers(x) {
-	console.log("Calculating...");
-	let result = {
+function calcTriangularNumbers() {
+	var numOfDivisors = 500
+	var result = {
 		num: 1,
 		divisors: 1
-	};
-	let i = 2;
-	while (result.divisors < x) {
-		result.num += i;
-		result.divisors = calcDivisors(result.num).length;
-		i++;
 	}
-	console.log(result);
-	return result;
+	var i = 2
+	while (result.divisors < numOfDivisors) {
+		result.num += i
+		result.divisors = calcPrimeFactors(result.num)
+		i++
+	}
+	return result
 }
-// calcTriangularNumbers(500);
+
+console.log(calcTriangularNumbers())
+let metric = require('./mymetric.js')
+console.log(metric.benchmark(50, calcTriangularNumbers))

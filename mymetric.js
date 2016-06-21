@@ -1,8 +1,8 @@
 let now = require('performance-now')
 
-function testPerformance(funcToTest) {
+function testPerformance(funcToTest, arg) {
 	let t0 = now()
-	let result = funcToTest()
+	let result = funcToTest(arg)
 	let t1 = now()
 	let out = t1 - t0
 	return { perf: out, result: result }
